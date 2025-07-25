@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.lab7day25.Api.ApiResponse;
 import org.example.lab7day25.Model.Course;
 import org.example.lab7day25.Model.Student;
+import org.example.lab7day25.Service.EnrollmentService;
 import org.example.lab7day25.Service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class StudentController {
 
     private final StudentService service;
+    private final EnrollmentService enrollmentService;
 
 
     @GetMapping("/get")
@@ -79,7 +81,7 @@ public class StudentController {
 
     @PostMapping("/enroll/{courseID}/{studentID}")
     public ResponseEntity<?> enrollToCourse(@PathVariable String courseID,@PathVariable String studentID){
-        int result = service.enrollCourse(courseID,studentID);
+        int result = enrollmentService.enrollCourse(courseID,studentID);
 
         return switch (result) {
             case 0 -> ResponseEntity.badRequest().body(new ApiResponse("There Are No Courses"));

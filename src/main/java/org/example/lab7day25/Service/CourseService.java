@@ -2,7 +2,7 @@ package org.example.lab7day25.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.lab7day25.Model.Course;
-import org.example.lab7day25.Model.Student;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class CourseService {
 
     ArrayList<Course> courses = new ArrayList<>();
-    private final StudentService studentService;
+
     public ArrayList<Course> getCourses(){
         return courses;
     }
@@ -69,22 +69,9 @@ public class CourseService {
         return result;
     }
 
-    public ArrayList<Student> getEnrolledStudents(String courseID){
-        ArrayList<Student> list = new ArrayList<>();
-        for(Student s : studentService.getStudents()){
-            for(Course c : s.getEnrolledCourses()){
-                if(c.getId().equals(courseID)){
-                    list.add(s);
-                    break;
-                }
-            }
-        }
-        return list;
-    }
 
-    public int getEnrollmentCount(String courseID){
-        return getEnrolledStudents(courseID).size();
-    }
+
+
 
 
 

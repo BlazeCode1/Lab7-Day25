@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.lab7day25.Api.ApiResponse;
 import org.example.lab7day25.Model.Course;
 import org.example.lab7day25.Service.CourseService;
+import org.example.lab7day25.Service.EnrollmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class CourseController {
 
         private final CourseService service;
+        private final EnrollmentService enrollmentService;
 
 
         @GetMapping("/get")
@@ -80,15 +82,15 @@ public class CourseController {
 
         @GetMapping("/get/enrolled/{courseID}")
         public ResponseEntity<?> getEnrolledStudents(@PathVariable String courseID){
-            if(service.getEnrolledStudents(courseID).isEmpty())
+            if(enrollmentService.getEnrolledStudents(courseID).isEmpty())
                 return ResponseEntity.badRequest().body(new ApiResponse("No enrolled Students"));
-        return ResponseEntity.ok(service.getEnrolledStudents(courseID));
+        return ResponseEntity.ok(enrollmentService.getEnrolledStudents(courseID));
 
         }
 
         @GetMapping("/enrollment/count/{courseID}")
         public ResponseEntity<?> getEnrollmentCount(@PathVariable String courseID){
-            return ResponseEntity.ok(service.getEnrollmentCount(courseID));
+            return ResponseEntity.ok(enrollmentService.getEnrollmentCount(courseID));
         }
 
 
